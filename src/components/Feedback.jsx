@@ -11,6 +11,7 @@ import Modal from "./Modal.jsx";
 import star from "../assets/images/star.png";
 import emptyStar from "../assets/images/emptyStar.png";
 import sendButton from "../assets/images/send.png";
+import Delete from "../assets/images/delete.png";
 
 const Feedback = () => {
   const [rating, setRating] = useState(0);
@@ -21,7 +22,7 @@ const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
   const [sortOption, setSortOption] = useState("");
   const [editingFeedbackId, setEditingFeedbackId] = useState(null);
-  const user = useUserStore((state) => state.user);
+  const { user } = useUserStore();
 
   const inputRef = useRef(null);
 
@@ -117,7 +118,7 @@ const Feedback = () => {
 
       <div
         className="flex-1 flex flex-col w-[95%] md:w-[85%] lg:w-[60%] bg-white px-2 rounded-lg gap-1 
-            max-h-[300px] overflow-y-auto"
+            max-h-[320px] overflow-y-auto min-h-[300px]"
       >
         <div className="flex w-full justify-between px-3 sticky top-0 bg-white py-2 z-30">
           <div className="flex gap-2 items-center bg-red-950 rounded-2xl py-0.5 px-2">
@@ -198,19 +199,19 @@ const Feedback = () => {
             className="pl-2 flex-1 outline-none bg-red-200 text-black shadow-md rounded-lg text-md placeholder:text-gray-500 placeholder:text-sm md:py-2 md:text-lg md:placeholder:text-lg w-[75%] py-1"
           />
 
-          {user?.email ? (
+          {user ? (
             <div className="flex flex-col items-center justify-center gap-2">
               {editingFeedbackId && (
-                <div
-                  className="cursor-pointer text-white bg-red-600 rounded-xl px-2 text-center"
+                <img
+                  className="w-7 object-cover cursor-pointer"
+                  src={Delete}
+                  alt="Delete Icon"
                   onClick={() => {
                     setEditingFeedbackId(null);
                     setComment("");
                     setRating(0);
                   }}
-                >
-                  x
-                </div>
+                />
               )}
               <button type="submit">
                 <img src={sendButton} alt="Send Icon" className="feedbackBtn" />

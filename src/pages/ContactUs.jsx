@@ -1,18 +1,23 @@
 import Header from "../components/Header";
+import ChatBox from "../components/ChatBox";
 import Footer from "../components/Footer";
-
-import phoneIcon from "../assets/images/call.png";
-import messageIcon from "../assets/images/send.png";
+import FaqQuickReplies from "../components/FaqQuickReplies";
+import useUserStore from "../store/useUserStore";
 
 function ContactUs() {
-  return (
-    <div className="flex flex-col w-full h-[100dvh]">
-      <Header />
+  const user = useUserStore((state) => state.user);
+  const id = user?._id;
 
-      <div className="flex flex-col flex-1 overflow-y-auto">
+  return (
+    <div className="flex flex-col w-[100%] h-[100dvh]">
+      <Header page={"CONTACT US"} />
+
+      <div className="w-full flex flex-col flex-1 overflow-y-auto">
         <div className="flex flex-col items-center p-3">
-          <div className="bg-black text-white px-2">
-            DITO YUNG CHATBOX OKIDOKIE.
+          <div className="w-full flex items-center flex-col md:flex-row lg:items-start justify-center mb-5 gap-5">
+            <ChatBox userId={id} isLoggedIn={!!user} />
+
+            <FaqQuickReplies userId={id} isLoggedIn={!!user} />
           </div>
 
           <div className="flex flex-col items-center text-center w-[90%] md:w-[60%] lg:w-[50%]">
@@ -25,26 +30,6 @@ function ContactUs() {
               will be handled automatically by our chatbot, but our admins can
               read your messages once we log in. Please wait for our reply!
             </p>
-
-            <div className="flex flex-col bg-pink-200 p-3 rounded-lg w-full md:text-lg ">
-              <div className="flex gap-2 items-center justify-center">
-                <img
-                  src={messageIcon}
-                  alt="Message Icon"
-                  className="w-[20px] h-[20px] lg:w-[15px] lg:h-[15px]"
-                />{" "}
-                <p className="text-red-950">mbeautyqueen@gmail.com</p>
-              </div>
-
-              <div className="flex gap-2 items-center justify-center">
-                <img
-                  src={phoneIcon}
-                  alt="Phone Icon"
-                  className="w-[20px] h-[20px] lg:w-[15px] lg:h-[15px]"
-                />{" "}
-                <p className="text-red-950">+639374629162</p>
-              </div>
-            </div>
           </div>
         </div>
 

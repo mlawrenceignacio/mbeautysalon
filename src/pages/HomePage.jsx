@@ -13,6 +13,8 @@ import HeroImg3 from "../assets/images/heroimg.jpg";
 import HeroImg4 from "../assets/images/heroimg2.jpg";
 import HeroImg5 from "../assets/images/heroimg3.jpg";
 
+import { FaStar, FaWandMagicSparkles, FaHeart } from "react-icons/fa6";
+
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -21,55 +23,68 @@ const HomePage = () => {
   return (
     <div className="w-[100vw] h-[100dvh] flex flex-col ">
       <div className="border-b-2 border-black">
-        <Header />
+        <Header page="HOME" />
       </div>
 
       <div className="flex-1 overflow-y-auto flex flex-col items-center">
         <section
           id="hero"
-          className="flex flex-col lg:flex-row lg:justify-evenly p-4 lg:px-4 lg:py-12 w-full items-center gap-3 bg-[url('/src/assets/images/desktopBG.jpg')]
-    bg-cover bg-center bg-no-repeat"
+          className="w-full md:bg-[url('/src/assets/images/desktopBG4.jpeg')] bg-[url('/src/assets/images/desktopBG.jpg')] bg-cover bg-center bg-no-repeat"
         >
-          <div className="w-[300px] h-[200px] sm:w-[60%] sm:h-[250px] md:w-[350] md:h-[300px] lg:w-[35%] lg:h-[400px] rounded-lg border border-black lg:border-none">
-            <img
-              src={HeroImg}
-              alt="Home hero image"
-              className="w-full h-full object-cover rounded-lg lg:hidden"
-            />
-
-            <img
-              src={HeroImg2}
-              alt="Home hero image large"
-              className="w-full h-full object-cover rounded-xl hidden lg:block"
-            />
-          </div>
-
-          <div className="flex flex-col gap-3 text-center items-center justify-center p-2 lg:w-[40%] ">
-            <div className="flex justify-evenly w-full ">
+          <div
+            className="max-w-screen-xl mx-auto flex flex-col lg:flex-row items-center justify-center
+      px-6 lg:px-12 py-5 lg:py-5 gap-10"
+          >
+            <div className="w-[300px] h-[200px] sm:w-[60%] sm:h-[250px]  md:hidden rounded-lg border border-black">
               <img
-                src={HeroImg3}
-                alt="Hero Image"
-                className="object-cover w-[100px] h-[100px] md:w-[130px] md:h-[120px] lg:w-[150px] lg:h-[150px] rounded-lg transition-transform duration-300 hover:scale-[105%]"
-              />
-              <img
-                src={HeroImg4}
-                alt="Hero Image"
-                className="object-cover w-[100px] h-[100px] md:w-[130px] md:h-[120px] lg:w-[150px] lg:h-[150px] rounded-lg transition-transform duration-300 hover:scale-[105%]"
-              />
-              <img
-                src={HeroImg5}
-                alt="Hero Image"
-                className="object-cover w-[100px] h-[100px] md:w-[130px] md:h-[120px] lg:w-[150px] lg:h-[150px] rounded-lg transition-transform duration-300 hover:scale-[105%]"
+                src={HeroImg}
+                alt="Home hero image"
+                className="w-full h-full object-cover rounded-lg"
               />
             </div>
 
-            <div className="flex flex-col items-center">
-              <h1 className="text-xl lg:text-3xl rounded-lg py-2 lg:py-4 px-2">
-                “Your beauty, defined and refined — only at MBeautyQueen”{" "}
+            <div
+              className="
+         flex flex-col gap-6 text-center lg:text-center items-center lg:items-center
+    bg-pink-100/40 backdrop-blur-md rounded-2xl p-6 lg:p-8 hadow-lg
+    lg:max-w-[60%]
+    border-0 lg:border lg:border-red-950/20
+      "
+            >
+              <div className="hidden lg:flex gap-4 text-red-900 text-4xl">
+                <FaStar />
+                <FaWandMagicSparkles />
+                <FaHeart />
+              </div>
+
+              <div className="flex justify-center gap-4 w-full">
+                <img
+                  src={HeroImg3}
+                  alt="Hero Small 1"
+                  className="object-cover w-[90px] h-[90px] md:w-[110px] md:h-[110px] lg:w-[130px] lg:h-[130px]
+            rounded-xl transition-transform duration-300 hover:scale-[105%] shadow-md"
+                />
+                <img
+                  src={HeroImg4}
+                  alt="Hero Small 2"
+                  className="object-cover w-[90px] h-[90px] md:w-[110px] md:h-[110px] lg:w-[130px] lg:h-[130px]
+            rounded-xl transition-transform duration-300 hover:scale-[105%] shadow-md"
+                />
+                <img
+                  src={HeroImg5}
+                  alt="Hero Small 3"
+                  className="object-cover w-[90px] h-[90px] md:w-[110px] md:h-[110px] lg:w-[130px] lg:h-[130px]
+            rounded-xl transition-transform duration-300 hover:scale-[105%] shadow-md"
+                />
+              </div>
+
+              <h1 className="text-xl lg:text-4xl text-red-950 font-semibold leading-tight lg:leading-snug">
+                “Your beauty, defined and refined — only at MBeautyQueen”
               </h1>
 
               <div
-                className="bg-red-950 text-pink-100 text-lg py-1.5 px-6 lg:py-2 lg:text-xl rounded-3xl transition-all duration-300 hover:bg-red-700 cursor-pointer hover:shadow-[2px_2px_1px_black]"
+                className="bg-red-950 text-pink-100 text-lg py-2 px-8 rounded-full shadow-md
+          transition-all duration-300 hover:bg-red-800 hover:shadow-[1px_1px_0px_black] cursor-pointer"
                 onClick={() => nav("/contact")}
               >
                 MESSAGE US

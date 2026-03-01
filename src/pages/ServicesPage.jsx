@@ -9,7 +9,7 @@ const ServicesPage = () => {
 
   return (
     <div className="w-full h-[100dvh] flex flex-col">
-      <Header />
+      <Header page={"SERVICES"} />
 
       <div className="w-full flex flex-col items-center flex-1 overflow-y-auto">
         <section

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 
 import useUserStore from "../store/useUserStore.js";
 import axios from "../api/axiosInstance.js";
@@ -10,7 +9,7 @@ import menuIcon from "../assets/images/menu.png";
 import logo from "../assets/images/logo.jpg";
 import settingIcon from "../assets/images/settings.png";
 
-const Header = () => {
+const Header = ({ page }) => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [showEditUsername, setShowEditUsername] = useState(false);
@@ -21,10 +20,10 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await axios.post("/auth/logout");
+    } finally {
       clearUser();
-      toast.success("Logged out succesfully!");
-    } catch (error) {
-      console.error(error.message);
+      localStorage.removeItem("user-storage");
+      window.location.href = "/";
     }
   };
 
@@ -70,10 +69,13 @@ const Header = () => {
           }`}
         >
           <li className="dropdownli">
-            <a href="/home">HOME</a>
+            <a href="/">HOME</a>
           </li>
           <li className="dropdownli">
             <a href="/services">SERVICES</a>
+          </li>
+          <li className="dropdownli">
+            <a href="/promotions">PROMOTIONS</a>
           </li>
           <li className="dropdownli">
             <a href="/reservation">RESERVATION</a>
@@ -86,7 +88,7 @@ const Header = () => {
           </li>
           {user && (
             <li
-              className="dropdownli"
+              className="dropdownli cursor-pointer"
               onClick={() => {
                 setShowSettings(true);
                 setShowMenu(false);
@@ -109,6 +111,17 @@ const Header = () => {
 
       {showSettings && (
         <ul className="absolute z-50 text-white bg-red-800/90 lg:bg-red-800/80 right-5 top-[70px] lg:top-[67px] p-3 rounded-lg text-center">
+          <li
+            className={`px-2 py-1 hover:bg-red-950 rounded-lg cursor-pointer ${
+              page === "USER RESERVATION" &&
+              "bg-pink-800 border-b border-r border-black"
+            }`}
+            onClick={() => {
+              nav("/user-reservation");
+            }}
+          >
+            Reservation
+          </li>
           <li
             className="px-2 py-1 hover:bg-red-950 rounded-lg cursor-pointer"
             onClick={() => {
@@ -142,19 +155,46 @@ const Header = () => {
         />
 
         <ul className="flex gap-1 items-center h-[40px] text-xs lg:text-[14px]">
-          <li className="navbarli lg:w-[110px] md:w-[100px]">
-            <a href="/home">HOME</a>
+          <li
+            className={`navbarli lg:w-[110px] md:w-[100px] ${
+              page === "HOME" && "bg-pink-300 text-black font-bold"
+            }`}
+          >
+            <a href="/">HOME</a>
           </li>
-          <li className="navbarli lg:w-[110px]">
+          <li
+            className={`navbarli lg:w-[110px] ${
+              page === "SERVICES" && "bg-pink-300 text-black font-bold"
+            }`}
+          >
             <a href="/services">SERVICES</a>
           </li>
-          <li className="navbarli lg:w-[110px]">
+          <li
+            className={`navbarli lg:w-[110px] ${
+              page === "PROMOTIONS" && "bg-pink-300 text-black font-bold "
+            }`}
+          >
+            <a href="/promotions">PROMOTIONS</a>
+          </li>
+          <li
+            className={`navbarli lg:w-[110px] ${
+              page === "RESERVATION" && "bg-pink-300 text-black font-bold"
+            }`}
+          >
             <a href="/reservation">RESERVATION</a>
           </li>
-          <li className="navbarli lg:w-[110px] ">
+          <li
+            className={`navbarli lg:w-[110px] ${
+              page === "ABOUT US" && "bg-pink-300 text-black font-bold"
+            }`}
+          >
             <a href="/about">ABOUT US</a>
           </li>
-          <li className="navbarli lg:w-[110px]">
+          <li
+            className={`navbarli lg:w-[110px] ${
+              page === "CONTACT US" && "bg-pink-300 text-black font-bold"
+            }`}
+          >
             <a href="/contact">CONTACT US</a>
           </li>
         </ul>

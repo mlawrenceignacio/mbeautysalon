@@ -16,7 +16,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const setUser = useUserStore((state) => state.setUser);
+  const { setUser } = useUserStore();
 
   const navigate = useNavigate();
 
@@ -37,7 +37,7 @@ const SignupPage = () => {
       setIsLoading(false);
       toast.success(res.data.message);
       setUser(res.data.user);
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setIsLoading(false);
       toast.error(error.response?.data?.message || "Error occured");
@@ -64,7 +64,7 @@ const SignupPage = () => {
           onSubmit={handleSubmit}
           className="w-[90%] flex flex-col items-center"
         >
-          <div className="w-[85%] sm:w-[60%] lg:w-[80%] p-2 flex flex-col gap-3 items-center">
+          <div className="w-[90%] sm:w-[60%] lg:w-[80%] p-2 flex flex-col gap-3 items-center">
             <div className="auth-input md:w-[60%] md:text-lg lg:bg-white lg:text-xl lg:w-[85%] lg:p-[5px]">
               <IoPersonSharp color="darkred" />
               <input
@@ -72,7 +72,7 @@ const SignupPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter email"
-                className="outline-none"
+                className="outline-none w-ful"
               />
             </div>
 
@@ -83,7 +83,7 @@ const SignupPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
-                className="outline-none"
+                className="outline-none w-full"
               />
             </div>
 
@@ -91,7 +91,7 @@ const SignupPage = () => {
               type="submit"
               className="red-bg w-full p-2 rounded-lg hover:bg-red-500 mt-1 md:w-[60%] md:text-lg lg:w-[85%] "
             >
-              Sign In
+              Sign Up
             </button>
           </div>
         </form>
@@ -100,9 +100,9 @@ const SignupPage = () => {
 
         <div
           onClick={handleGoogleLogin}
-          className="flex items-center justify-center py-1.5 rounded-md gap-2 bg-red-200 w-[71%] sm:w-[51%] red-color text-md hover:bg-red-100 md:w-[45%] md:text-lg lg:bg-white lg:w-[58%] lg:shadow-md lg:py-2"
+          className="flex items-center justify-center py-1.5 rounded-md gap-2 bg-red-200 w-[76%] sm:w-[51%] red-color text-md hover:bg-red-100 md:w-[45%] md:text-lg lg:bg-white lg:w-[58%] lg:shadow-md lg:py-2 cursor-pointer"
         >
-          <FcGoogle /> Sign In with Google
+          <FcGoogle /> Sign Up with Google
         </div>
 
         <p className="mt-7 text-sm red-color md:text-lg">

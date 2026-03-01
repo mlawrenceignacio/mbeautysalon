@@ -16,7 +16,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const setUser = useUserStore((state) => state.setUser);
+  const { setUser } = useUserStore();
 
   const navigate = useNavigate();
 
@@ -40,7 +40,7 @@ const LoginPage = () => {
       setUser(res.data.user);
       setEmail("");
       setPassword("");
-      navigate("/home");
+      navigate("/");
     } catch (error) {
       setIsLoading(false);
       toast.error(error.response?.data?.message || "Error occured");
@@ -53,7 +53,7 @@ const LoginPage = () => {
       <div className="flex flex-col items-center mt-16 w-full">
         <h1 className="text-2xl red-color mb-4 md:text-3xl">LOGIN</h1>
 
-        <form onSubmit={handleSubmit} className="w-[75%] sm:w-[55%] md:w-[50%]">
+        <form onSubmit={handleSubmit} className="w-[80%] sm:w-[55%] md:w-[50%]">
           <div className="flex flex-col items-center gap-3">
             <div className="auth-input md:w-[70%] md:text-lg lg:w-[60%] lg:text-xl">
               <IoPersonSharp />
@@ -62,7 +62,7 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter email"
-                className="outline-none"
+                className="outline-none w-full"
               />
             </div>
 
@@ -73,7 +73,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter password"
-                className="outline-none"
+                className="outline-none w-full"
               />
             </div>
 
@@ -90,7 +90,7 @@ const LoginPage = () => {
 
         <div
           onClick={handleGoogleLogin}
-          className="flex items-center justify-center gap-2 bg-red-200 py-1.5 w-[75%] rounded-md shadow-md hover:bg-red-100 cursor-pointer sm:w-[55%] md:w-[35%] md:text-lg lg:w-[30%] lg:text-xl"
+          className="flex items-center justify-center gap-2 bg-red-200 py-1.5 w-[80%] rounded-md shadow-md hover:bg-red-100 cursor-pointer sm:w-[55%] md:w-[35%] md:text-lg lg:w-[30%] lg:text-xl"
         >
           <FcGoogle />
           Log in with Google
@@ -99,7 +99,7 @@ const LoginPage = () => {
         <p className="mt-10 text-sm md:text-lg lg:text-xl">
           Don't have an account?{" "}
           <Link to="/signup" className="red-color font-bold">
-            Sign in
+            Sign up
           </Link>
           .
         </p>

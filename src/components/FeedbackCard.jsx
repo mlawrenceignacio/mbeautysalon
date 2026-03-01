@@ -55,7 +55,7 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
         )}
 
         {showMenu && (
-          <div className="absolute top-5 right-1 text-sm z-50 flex flex-col bg-white text-red-950 p-2 rounded-md gap-1">
+          <div className="absolute top-5 right-1 text-sm z-100 flex flex-col bg-white text-red-950 p-2 rounded-md gap-1">
             <button
               className="hover:bg-red-950 hover:text-white rounded-sm"
               onClick={() => {

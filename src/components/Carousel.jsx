@@ -22,7 +22,6 @@ const Carousel = () => {
 
   return (
     <div className="relative w-full max-w-4xl mx-auto overflow-hidden rounded-xl bg-pink-100 p-5 md:p-8">
-      {/* Slides wrapper */}
       <div className="relative w-full h-[300px] md:h-[350px] lg:h-[380px] flex items-center justify-center pointer-events-none">
         {images.map((img, index) => {
           let offset = index - currentIndex;
@@ -56,7 +55,6 @@ const Carousel = () => {
         })}
       </div>
 
-      {/* Arrows */}
       <button
         onClick={prevSlide}
         className="absolute top-1/2 left-4 -translate-y-1/2 bg-black/50 text-white px-4 py-2 rounded-full z-20"
@@ -70,7 +68,6 @@ const Carousel = () => {
         &gt;
       </button>
 
-      {/* Dots */}
       <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-20">
         {images.map((_, i) => (
           <div
