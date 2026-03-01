@@ -41,7 +41,6 @@ const Feedback = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setIsLoading(true);
 
     try {
       const finalRating = rating === 0 ? 1 : rating;
@@ -49,7 +48,6 @@ const Feedback = () => {
       console.log({ star: finalRating, message: comment, email: user.email });
 
       if (!rating || !finalRating) {
-        setIsLoading(false);
         toast.error("Star rating is required.");
         return;
       }
@@ -79,8 +77,6 @@ const Feedback = () => {
       console.error(error.message);
       toast.error("Failed to post comment.");
     }
-
-    setIsLoading(false);
   }
 
   const getFeedbacks = async () => {

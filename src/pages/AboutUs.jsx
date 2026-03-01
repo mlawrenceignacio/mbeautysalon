@@ -223,12 +223,12 @@ const AboutUs = () => {
                 </div>
               </div>
             </div>
-
-            <div className="mt-10">
-              <Footer />
-            </div>
           </div>
         </section>
+
+        <div className="mt-10">
+          <Footer />
+        </div>
       </div>
     </div>
   );
