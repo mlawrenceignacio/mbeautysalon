@@ -138,7 +138,7 @@ const Feedback = () => {
               onChange={(e) => setSortOption(e.target.value)}
               className="text-white py-0.5 px-0.5 bg-red-900 rounded-xl outline-none"
             >
-              <option value="">Most Recent</option>
+              <option value="">All</option>
               <option value="5">5</option>
               <option value="4">4</option>
               <option value="3">3</option>

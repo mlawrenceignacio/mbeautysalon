@@ -76,7 +76,7 @@ function UserReservation() {
           </div>
         </section>
 
-        <section className="max-w-[1200px] mx-auto px-4 md:px-8 py-8">
+        <section className="max-w-[1000px] mx-auto px-4 md:px-8 py-8">
           {reservations.length === 0 ? (
             <div className="flex flex-col items-center text-center bg-white rounded-2xl p-8 shadow-md border border-red-200">
               <FaInfoCircle className="text-4xl text-red-700 mb-3" />
@@ -121,8 +121,8 @@ function UserReservation() {
                           r.status === "Pending"
                             ? "bg-yellow-200 text-yellow-900"
                             : r.status === "Approved"
-                            ? "bg-green-200 text-green-900"
-                            : "bg-red-200 text-red-900"
+                              ? "bg-green-200 text-green-900"
+                              : "bg-red-200 text-red-900"
                         }
                       `}
                     >
