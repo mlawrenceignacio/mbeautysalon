@@ -9,21 +9,17 @@ import menuIcon from "../assets/images/dots.png";
 import Loading from "./Loading.jsx";
 const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
   const [showMenu, setShowMenu] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const user = useUserStore((state) => state.user);
 
   const handleDelete = async () => {
     setShowMenu(false);
-    setIsLoading(true);
 
     try {
       const res = await axios.delete(`/feedbacks/${fb._id}`);
       await getFeedbacks();
 
-      setIsLoading(false);
       console.log(res?.data?.message);
     } catch (error) {
-      setIsLoading(false);
       console.error(error.message);
       toast.error("Failed to delete feedback.");
     }
@@ -31,7 +27,6 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
 
   return (
     <div className="bg-pink-100 rounded-lg border border-black p-2 md:w-[80%] lg:w-[70%]">
-      {isLoading && <Loading />}
       <div className="flex justify-between items-center relative">
         <div className="flex gap-2 items-center">
           <p className="text-sm italic">@{fb.username}</p>
