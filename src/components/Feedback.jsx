@@ -34,10 +34,12 @@ const Feedback = () => {
           feedbacks.reduce((acc, fb) => acc + fb.star, 0) / feedbacks.length
         ).toFixed(1)
       : 1;
-  const filteredFeedbacks = feedbacks.filter((fb) => {
-    if (sortOption === "") return true;
-    return fb.star === Number(sortOption);
-  });
+  const filteredFeedbacks = [...feedbacks]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .filter((fb) => {
+      if (sortOption === "") return true;
+      return fb.star === Number(sortOption);
+    });
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -97,7 +99,7 @@ const Feedback = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center text-red-100 bg-pink-950 p-5 gap-3 overflow-hidden ">
+    <div className="flex flex-col items-center text-red-100 bg-pink-950 p-5 gap-3">
       {isLoading && <Loading />}
 
       {showModal && (
@@ -150,9 +152,9 @@ const Feedback = () => {
               No feedback found with this star rating.
             </p>
           ) : (
-            filteredFeedbacks.map((feedback, i) => (
+            filteredFeedbacks.map((feedback) => (
               <FeedbackCard
-                key={i}
+                key={feedback._id}
                 fb={feedback}
                 getFeedbacks={getFeedbacks}
                 onEdit={(fb) => {
