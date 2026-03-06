@@ -36,7 +36,7 @@ export default function FaqQuickReplies({ userId, isLoggedIn }) {
   };
 
   return (
-    <div className="w-[80%] max-w-xl h-[420px] sm:h-[450px] md:h-[450px] border border-pink-200 rounded-2xl bg-white shadow-xl overflow-hidden flex flex-col">
+    <div className="w-[95%] max-w-xl h-[420px] sm:h-[450px] md:h-[450px] border border-pink-200 rounded-2xl bg-white shadow-xl overflow-hidden flex flex-col">
       <div className="px-4 py-3 border-b bg-white">
         <p className="text-red-950 font-bold text-base">Quick FAQs</p>
         <p className="text-xs text-gray-500 mt-0.5">

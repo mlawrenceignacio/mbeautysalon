@@ -98,7 +98,7 @@ function ChatBox({ userId, isLoggedIn }) {
   return (
     <div
       className="
-  flex flex-col lg:flex-1 w-[80%]
+  flex flex-col lg:flex-1 w-[95%]
   max-w-xl 
   h-[420px] sm:h-[450px] md:h-[450px] 
   border border-pink-200 rounded-2xl 
