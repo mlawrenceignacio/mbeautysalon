@@ -28,7 +28,7 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
   return (
     <div className="bg-pink-100 rounded-lg border border-black p-2 md:w-[80%] lg:w-[70%]">
       <div className="flex justify-between items-center relative">
-        <div className="flex flex-col">
+        <div className="flex flex-col items-start justify-start">
           <p className="text-sm font-bold">{fb.email}</p>
           <div className="flex gap-2 items-center">
             <p className="text-sm italic">@{fb.username}</p>
@@ -72,6 +72,7 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
           </div>
         )}
       </div>
+      <br />
       <p className="text-black">{fb.message}</p>
       <div className="mt-1 text-xs">
         <p>{formatDate(fb.createdAt)}</p>
