@@ -103,8 +103,7 @@ const Reservation = () => {
 
             <p className="hidden lg:flex text-lg text-center bg-pink-300/50 p-3 rounded-lg w-[85%] mt-3">
               After booking a reservation, please wait for an email or chat
-              response from us. If the reservation remains pending for 24 hours
-              without a reply from our team, it will be automatically canceled.
+              response from us.
             </p>
           </div>
 

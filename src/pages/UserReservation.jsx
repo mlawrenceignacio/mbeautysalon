@@ -23,6 +23,33 @@ function UserReservation() {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
+  const canCancelReservation = (reservation) => {
+    if (reservation.status !== "Pending") return false;
+
+    const createdAt = new Date(reservation.createdAt).getTime();
+    const now = Date.now();
+    const oneDayInMs = 24 * 60 * 60 * 1000;
+
+    return now - createdAt >= oneDayInMs;
+  };
+
+  const canConfirmReservation = (r) => {
+    return r.status === "Pending";
+  };
+
+  async function handleConfirm(id) {
+    setIsLoading(true);
+
+    try {
+      await axios.patch(`/reservations/${id}/confirm-own-reservation`);
+      getReservations();
+    } catch (error) {
+      console.error(error.response?.data?.message || error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   const getReservations = async () => {
     setIsLoading(true);
     try {
@@ -34,6 +61,22 @@ function UserReservation() {
       setIsLoading(false);
     }
   };
+
+  async function handleCancel(id) {
+    setIsLoading(true);
+
+    try {
+      const res = await axios.patch(
+        `/reservations/${id}/status-own-reservation`,
+      );
+
+      getReservations();
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   useEffect(() => {
     getReservations();
@@ -91,25 +134,25 @@ function UserReservation() {
           ) : (
             <div
               className={`
-    grid gap-6
-    grid-cols-1
-    ${
-      reservations.length === 1
-        ? "md:grid-cols-1 place-items-center"
-        : "md:grid-cols-2"
-    }
-  `}
+              grid gap-6
+              grid-cols-1
+              ${
+                reservations.length === 1
+                  ? "md:grid-cols-1 place-items-center items-center"
+                  : "md:grid-cols-2 place-items-center items-center"
+              }
+            `}
             >
               {reservations.map((r) => (
                 <div
                   key={r._id}
                   className="
-    bg-white rounded-2xl shadow-lg border border-red-200
-    p-6 flex flex-col gap-4
-    w-full max-w-[520px]
-  "
+                    bg-white rounded-2xl shadow-lg border border-red-200
+                    p-6 flex flex-col gap-4
+                    w-full max-w-[520px]
+                  "
                 >
-                  <div className="flex justify-between items-center">
+                  <div className="flex justify-between items-start gap-3 flex-wrap">
                     <h3 className="text-lg font-bold text-red-900 flex items-center gap-2">
                       <FaClipboardList />
                       Reservation Details
@@ -128,6 +171,32 @@ function UserReservation() {
                     >
                       {r.status}
                     </span>
+
+                    {r.status === "Pending" && (
+                      <div className="bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-xl p-3 text-sm">
+                        This reservation is waiting for your confirmation.
+                      </div>
+                    )}
+
+                    <div className="flex gap-2 flex-wrap mt-2">
+                      {canConfirmReservation(r) && (
+                        <button
+                          className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition"
+                          onClick={() => handleConfirm(r._id)}
+                        >
+                          Confirm
+                        </button>
+                      )}
+
+                      {canCancelReservation(r) && (
+                        <button
+                          className="bg-red-700 text-white px-3 py-1 rounded-lg hover:bg-red-800 transition"
+                          onClick={() => handleCancel(r._id)}
+                        >
+                          Cancel
+                        </button>
+                      )}
+                    </div>
                   </div>
 
                   <div className="flex flex-wrap gap-4 text-red-800">
