@@ -20,6 +20,8 @@ import {
   FaCircleExclamation,
 } from "react-icons/fa";
 
+import desktopBG from "../assets/images/desktopBG.jpg";
+
 function UserReservation() {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -122,7 +124,10 @@ function UserReservation() {
       <Header page={"USER RESERVATION"} />
 
       <div className="flex-1 overflow-y-auto bg-pink-50">
-        <section className="relative w-full py-4 px-4 bg-[url('/src/assets/images/desktopBG.jpg')] bg-cover bg-center">
+        <section
+          className="relative w-full py-4 px-4 bg-cover bg-center"
+          style={{ backgroundImage: `url(${desktopBG})` }}
+        >
           <div className="max-w-[900px] mx-auto">
             <div className="bg-pink-100/60 backdrop-blur-md border border-red-200 rounded-3xl shadow-lg px-6 py-8 text-center flex flex-col items-center gap-4">
               <div className="flex items-center gap-3 text-red-900">

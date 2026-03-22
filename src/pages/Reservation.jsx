@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
+import desktopBG from "../assets/images/desktopBG.jpg";
+
 const Reservation = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUserStore();
@@ -87,9 +89,9 @@ const Reservation = () => {
             className="flex flex-col items-center text-center
   w-full lg:w-[45%]
   p-4 md:p-6 lg:p-8
-  bg-[url('src/assets/images/desktopBG.jpg')]
   bg-no-repeat bg-cover bg-center
   rounded-xl lg:rounded-2xl"
+            style={{ backgroundImage: `url(${desktopBG})` }}
           >
             <h1 className="mt-4 text-2xl lg:text-3xl font-bold text-red-950 mb-2 lg:mt-5">
               MBeautyQueen Salon Booking Form
