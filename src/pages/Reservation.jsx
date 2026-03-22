@@ -47,7 +47,7 @@ const Reservation = () => {
       });
 
       toast.success(
-        "Reservation booked successfully!\nPlease wait for our response.",
+        "Reservation booked successfully! Please go to Settings > Reservation to confirm or cancel your booking.",
       );
       setName("");
       setNumber("");
@@ -101,10 +101,20 @@ const Reservation = () => {
               className="h-[150px] w-[80%] md:w-[55%] md:h-[250px] lg:h-[250px] lg:w-[65%] object-cover"
             />
 
-            <p className="hidden lg:flex text-lg text-center bg-pink-300/50 p-3 rounded-lg w-[85%] mt-3">
-              After booking a reservation, please wait for an email or chat
-              response from us.
-            </p>
+            <div className="hidden lg:flex flex-col text-center bg-pink-300/50 p-4 rounded-lg w-[85%] mt-3 gap-3">
+              <p className="text-lg text-red-950 font-semibold">
+                Important Reminder
+              </p>
+              <p className="text-base text-red-900">
+                After booking, go to{" "}
+                <span className="font-bold">Settings &gt; Reservation</span> to
+                confirm or cancel your request.
+              </p>
+              <p className="text-sm text-red-800">
+                The salon will only review your booking after you confirm it in
+                your account.
+              </p>
+            </div>
           </div>
 
           <form

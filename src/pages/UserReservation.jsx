@@ -17,38 +17,16 @@ import {
   FaInfoCircle,
   FaClipboardCheck,
   FaStar,
-} from "react-icons/fa";
+  FaCircleExclamation,
+} from "react-icons/fa6";
 
 function UserReservation() {
   const [reservations, setReservations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const canCancelReservation = (reservation) => {
-    if (reservation.status !== "Pending") return false;
-
-    const createdAt = new Date(reservation.createdAt).getTime();
-    const now = Date.now();
-    const oneDayInMs = 24 * 60 * 60 * 1000;
-
-    return now - createdAt >= oneDayInMs;
+  const isPendingReservation = (reservation) => {
+    return reservation.status === "Pending";
   };
-
-  const canConfirmReservation = (r) => {
-    return r.status === "Pending";
-  };
-
-  async function handleConfirm(id) {
-    setIsLoading(true);
-
-    try {
-      await axios.patch(`/reservations/${id}/confirm-own-reservation`);
-      getReservations();
-    } catch (error) {
-      console.error(error.response?.data?.message || error.message);
-    } finally {
-      setIsLoading(false);
-    }
-  }
 
   const getReservations = async () => {
     setIsLoading(true);
@@ -56,23 +34,39 @@ function UserReservation() {
       const res = await axios.get("/reservations/me");
       setReservations(res?.data?.reservations || []);
     } catch (error) {
-      console.error(error.message);
+      console.error(error.response?.data?.message || error.message);
     } finally {
       setIsLoading(false);
     }
   };
 
-  async function handleCancel(id) {
-    setIsLoading(true);
-
+  async function handleConfirm(id) {
     try {
-      const res = await axios.patch(
-        `/reservations/${id}/status-own-reservation`,
-      );
+      setIsLoading(true);
 
-      getReservations();
+      await axios.patch(`/reservations/${id}/confirm-own-reservation`);
+
+      setReservations((prev) =>
+        prev.map((r) => (r._id === id ? { ...r, status: "UserConfirmed" } : r)),
+      );
     } catch (error) {
-      console.error(error.message);
+      console.error(error.response?.data?.message || error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  async function handleCancel(id) {
+    try {
+      setIsLoading(true);
+
+      await axios.patch(`/reservations/${id}/status-own-reservation`);
+
+      setReservations((prev) =>
+        prev.map((r) => (r._id === id ? { ...r, status: "Cancelled" } : r)),
+      );
+    } catch (error) {
+      console.error(error.response?.data?.message || error.message);
     } finally {
       setIsLoading(false);
     }
@@ -81,6 +75,43 @@ function UserReservation() {
   useEffect(() => {
     getReservations();
   }, []);
+
+  const getStatusClasses = (status) => {
+    switch (status) {
+      case "Pending":
+        return "bg-yellow-200 text-yellow-900";
+      case "UserConfirmed":
+        return "bg-blue-200 text-blue-900";
+      case "Confirmed":
+        return "bg-green-200 text-green-900";
+      case "Done":
+        return "bg-emerald-200 text-emerald-900";
+      case "Declined":
+      case "Cancelled":
+        return "bg-red-200 text-red-900";
+      default:
+        return "bg-gray-200 text-gray-900";
+    }
+  };
+
+  const getStatusMessage = (status) => {
+    switch (status) {
+      case "Pending":
+        return "This reservation is waiting for your confirmation. Please confirm or cancel it below.";
+      case "UserConfirmed":
+        return "You already confirmed this reservation. Please wait for the salon's final approval.";
+      case "Confirmed":
+        return "Your reservation has been approved by the salon.";
+      case "Cancelled":
+        return "This reservation has been cancelled.";
+      case "Declined":
+        return "This reservation was declined by the salon.";
+      case "Done":
+        return "This reservation has been marked as completed.";
+      default:
+        return "";
+    }
+  };
 
   if (isLoading) {
     return <Loading />;
@@ -93,17 +124,7 @@ function UserReservation() {
       <div className="flex-1 overflow-y-auto bg-pink-50">
         <section className="relative w-full py-4 px-4 bg-[url('/src/assets/images/desktopBG.jpg')] bg-cover bg-center">
           <div className="max-w-[900px] mx-auto">
-            <div
-              className="
-              bg-pink-100/60 backdrop-blur-md
-              border border-red-200
-              rounded-3xl
-              shadow-lg
-              px-6 py-8
-              text-center
-              flex flex-col items-center gap-4
-            "
-            >
+            <div className="bg-pink-100/60 backdrop-blur-md border border-red-200 rounded-3xl shadow-lg px-6 py-8 text-center flex flex-col items-center gap-4">
               <div className="flex items-center gap-3 text-red-900">
                 <FaClipboardCheck className="text-3xl" />
                 <h1 className="text-2xl lg:text-4xl font-bold">
@@ -133,24 +154,16 @@ function UserReservation() {
             </div>
           ) : (
             <div
-              className={`
-              grid gap-6
-              grid-cols-1
-              ${
+              className={`grid gap-6 grid-cols-1 ${
                 reservations.length === 1
                   ? "md:grid-cols-1 place-items-center items-center"
                   : "md:grid-cols-2 place-items-center items-center"
-              }
-            `}
+              }`}
             >
               {reservations.map((r) => (
                 <div
                   key={r._id}
-                  className="
-                    bg-white rounded-2xl shadow-lg border border-red-200
-                    p-6 flex flex-col gap-4
-                    w-full max-w-[520px]
-                  "
+                  className="bg-white rounded-2xl shadow-lg border border-red-200 p-6 flex flex-col gap-4 w-full max-w-[520px]"
                 >
                   <div className="flex justify-between items-start gap-3 flex-wrap">
                     <h3 className="text-lg font-bold text-red-900 flex items-center gap-2">
@@ -159,45 +172,48 @@ function UserReservation() {
                     </h3>
 
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold
-                        ${
-                          r.status === "Pending"
-                            ? "bg-yellow-200 text-yellow-900"
-                            : r.status === "Approved"
-                              ? "bg-green-200 text-green-900"
-                              : "bg-red-200 text-red-900"
-                        }
-                      `}
+                      className={`px-3 py-1 rounded-full text-sm font-semibold ${getStatusClasses(
+                        r.status,
+                      )}`}
                     >
                       {r.status}
                     </span>
-
-                    {r.status === "Pending" && (
-                      <div className="bg-yellow-100 border border-yellow-300 text-yellow-900 rounded-xl p-3 text-sm">
-                        This reservation is waiting for your confirmation.
-                      </div>
-                    )}
-
-                    <div className="flex gap-2 flex-wrap mt-2">
-                      {canConfirmReservation(r) && (
-                        <button
-                          className="bg-green-600 text-white px-3 py-1 rounded-lg hover:bg-green-700 transition"
-                          onClick={() => handleConfirm(r._id)}
-                        >
-                          Confirm
-                        </button>
-                      )}
-
-                      {canCancelReservation(r) && (
-                        <button
-                          className="bg-red-700 text-white px-3 py-1 rounded-lg hover:bg-red-800 transition"
-                          onClick={() => handleCancel(r._id)}
-                        >
-                          Cancel
-                        </button>
-                      )}
-                    </div>
                   </div>
+
+                  {getStatusMessage(r.status) && (
+                    <div
+                      className={`rounded-xl p-3 text-sm flex items-start gap-2 ${
+                        r.status === "Pending"
+                          ? "bg-yellow-100 border border-yellow-300 text-yellow-900"
+                          : r.status === "UserConfirmed"
+                            ? "bg-blue-100 border border-blue-300 text-blue-900"
+                            : r.status === "Confirmed"
+                              ? "bg-green-100 border border-green-300 text-green-900"
+                              : "bg-red-100 border border-red-300 text-red-900"
+                      }`}
+                    >
+                      <FaCircleExclamation className="mt-0.5" />
+                      <p>{getStatusMessage(r.status)}</p>
+                    </div>
+                  )}
+
+                  {isPendingReservation(r) && (
+                    <div className="flex gap-2 flex-wrap">
+                      <button
+                        className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-semibold"
+                        onClick={() => handleConfirm(r._id)}
+                      >
+                        Confirm
+                      </button>
+
+                      <button
+                        className="bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800 transition font-semibold"
+                        onClick={() => handleCancel(r._id)}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  )}
 
                   <div className="flex flex-wrap gap-4 text-red-800">
                     <p className="flex items-center gap-2">
