@@ -47,7 +47,7 @@ const Reservation = () => {
       });
 
       toast.success(
-        "Reservation booked successfully!\nPlease wait for our response."
+        "Reservation booked successfully!\nPlease wait for our response.",
       );
       setName("");
       setNumber("");
@@ -57,9 +57,9 @@ const Reservation = () => {
       setTime("");
       setService("");
       setNote("");
-      console.log(res.data);
     } catch (error) {
-      console.error(error.message);
+      const message = error.response?.data?.message || "Something went wrong";
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
@@ -134,7 +134,7 @@ const Reservation = () => {
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="Ex: Maricar Dumon"
-                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                     />
                   </div>
 
@@ -146,7 +146,7 @@ const Reservation = () => {
                       type="text"
                       placeholder="Ex: 09372639263"
                       id="contactNo"
-                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                       value={number}
                       onChange={(e) => setNumber(e.target.value)}
                     />
@@ -160,7 +160,7 @@ const Reservation = () => {
                       type="email"
                       placeholder="Ex: mbeautyqueen@gmail.com"
                       id="email"
-                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
@@ -174,7 +174,7 @@ const Reservation = () => {
                       type="text"
                       placeholder="Ex: Brgy. Mahabang Parang, Angono, Rizal"
                       id="address"
-                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                       value={address}
                       onChange={(e) => setAddress(e.target.value)}
                     />
@@ -233,7 +233,7 @@ const Reservation = () => {
                       type="text"
                       placeholder="Ex: Manicure, Pedicure..."
                       id="serviceAvailed"
-                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                       value={service}
                       onChange={(e) => setService(e.target.value)}
                     />
@@ -247,7 +247,7 @@ const Reservation = () => {
                       type="text"
                       id="extraNote"
                       placeholder="Ex: Blue color for hair..."
-                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-700 focus:outline-none focus:ring-2 focus:ring-red-300"
+                      className="w-full px-4 py-3 rounded-lg bg-[#ffecec] border border-red-200 text-red-900 placeholder-red-300 focus:outline-none focus:ring-2 focus:ring-red-300"
                       value={note}
                       onChange={(e) => setNote(e.target.value)}
                     />

@@ -29,6 +29,7 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
     <div className="bg-pink-100 rounded-lg border border-black p-2 md:w-[80%] lg:w-[70%]">
       <div className="flex justify-between items-center relative">
         <div className="flex gap-2 items-center">
+          <p className="text-sm bold">@{fb.email}</p>
           <p className="text-sm italic">@{fb.username}</p>
           <p className="text-sm">| {fb.star} star</p>
         </div>

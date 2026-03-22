@@ -34,6 +34,7 @@ const Feedback = () => {
           feedbacks.reduce((acc, fb) => acc + fb.star, 0) / feedbacks.length
         ).toFixed(1)
       : 1;
+
   const filteredFeedbacks = [...feedbacks]
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .filter((fb) => {
@@ -46,8 +47,6 @@ const Feedback = () => {
 
     try {
       const finalRating = rating === 0 ? 1 : rating;
-
-      console.log({ star: finalRating, message: comment, email: user.email });
 
       if (!rating || !finalRating) {
         toast.error("Star rating is required.");

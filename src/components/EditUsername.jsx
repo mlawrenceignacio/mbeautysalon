@@ -20,7 +20,7 @@ const EditUsername = ({ setShowEditUsername }) => {
     }
 
     try {
-      const res = await axios.put("/user", {
+      const res = await axios.patch(`/user/${user?._id}`, {
         username,
         email: user?.email,
       });
