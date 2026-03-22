@@ -48,9 +48,7 @@ function UserReservation() {
 
       await axios.patch(`/reservations/${id}/confirm-own-reservation`);
 
-      setReservations((prev) =>
-        prev.map((r) => (r._id === id ? { ...r, status: "UserConfirmed" } : r)),
-      );
+      await getReservations();
     } catch (error) {
       console.error(error.response?.data?.message || error.message);
     } finally {
@@ -64,9 +62,7 @@ function UserReservation() {
 
       await axios.patch(`/reservations/${id}/status-own-reservation`);
 
-      setReservations((prev) =>
-        prev.map((r) => (r._id === id ? { ...r, status: "Cancelled" } : r)),
-      );
+      await getReservations();
     } catch (error) {
       console.error(error.response?.data?.message || error.message);
     } finally {
@@ -168,7 +164,7 @@ function UserReservation() {
               {reservations.map((r) => (
                 <div
                   key={r._id}
-                  className="bg-white rounded-2xl shadow-lg border border-red-200 p-6 flex flex-col gap-4 w-full max-w-[520px]"
+                  className="bg-white rounded-2xl shadow-lg border border-red-200 p-6 flex flex-col gap-4 w-full max-w-[520px] font-serif"
                 >
                   <div className="flex justify-between items-start gap-3 flex-wrap">
                     <h3 className="text-lg font-bold text-red-900 flex items-center gap-2">

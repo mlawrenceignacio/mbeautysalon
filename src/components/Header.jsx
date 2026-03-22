@@ -99,16 +99,13 @@ const Header = ({ page }) => {
           )}
         </ul>
       </div>
-
       {showSettings && <div className="md:hidden inset-0 fixed"></div>}
-
       {showSettings && (
         <div
           className="fixed inset-0 z-40"
           onClick={() => setShowSettings(false)}
         ></div>
       )}
-
       {showSettings && (
         <ul className="absolute z-50 text-white bg-red-800/90 lg:bg-red-800/80 right-5 top-[70px] lg:top-[67px] p-3 rounded-lg text-center">
           <li
@@ -142,11 +139,10 @@ const Header = ({ page }) => {
           </li>
         </ul>
       )}
-
       {showEditUsername && (
         <EditUsername setShowEditUsername={setShowEditUsername} />
       )}
-
+      {/* For Larger Screen Header */}
       <div className="hidden md:flex items-center justify-between px-5 py-1.5 bg-red-950 text-pink-100 text-lg w-full overflow-hidden lg:gap-20 gap-16">
         <img
           className="w-[65px] h-[50px] rounded-lg border border-black object-contain bg-white"
@@ -154,44 +150,44 @@ const Header = ({ page }) => {
           alt="MBeautyQueen Logo 1"
         />
 
-        <ul className="flex gap-1 items-center h-[40px] text-xs lg:text-[14px]">
+        <ul className="flex gap-2 items-center h-[40px] text-xs lg:text-[14px]">
           <li
-            className={`navbarli lg:w-[110px] md:w-[100px] ${
+            className={`navbarli md:w-[125px] ${
               page === "HOME" && "bg-pink-300 text-black font-bold"
             }`}
           >
             <a href="/">HOME</a>
           </li>
           <li
-            className={`navbarli lg:w-[110px] ${
+            className={`navbarli md:w-[125px] ${
               page === "SERVICES" && "bg-pink-300 text-black font-bold"
             }`}
           >
             <a href="/services">SERVICES</a>
           </li>
           <li
-            className={`navbarli lg:w-[110px] ${
+            className={`navbarli md:w-[125px] ${
               page === "PROMOTIONS" && "bg-pink-300 text-black font-bold "
             }`}
           >
             <a href="/promotions">PROMOTIONS</a>
           </li>
           <li
-            className={`navbarli lg:w-[110px] ${
+            className={`navbarli md:w-[125px] ${
               page === "RESERVATION" && "bg-pink-300 text-black font-bold"
             }`}
           >
             <a href="/reservation">RESERVATION</a>
           </li>
           <li
-            className={`navbarli lg:w-[110px] ${
+            className={`navbarli md:w-[125px] ${
               page === "ABOUT US" && "bg-pink-300 text-black font-bold"
             }`}
           >
             <a href="/about">ABOUT US</a>
           </li>
           <li
-            className={`navbarli lg:w-[110px] ${
+            className={`navbarli md:w-[125px] ${
               page === "CONTACT US" && "bg-pink-300 text-black font-bold"
             }`}
           >
