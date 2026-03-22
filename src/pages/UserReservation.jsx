@@ -17,7 +17,7 @@ import {
   FaInfoCircle,
   FaClipboardCheck,
   FaStar,
-  FaCircleExclamation,
+  FaExclamationCircle,
 } from "react-icons/fa";
 
 import desktopBG from "../assets/images/desktopBG.jpg";
@@ -197,7 +197,7 @@ function UserReservation() {
                               : "bg-red-100 border border-red-300 text-red-900"
                       }`}
                     >
-                      <FaCircleExclamation className="mt-0.5" />
+                      <FaExclamationCircle className="mt-0.5" />
                       <p>{getStatusMessage(r.status)}</p>
                     </div>
                   )}
