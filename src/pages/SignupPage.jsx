@@ -7,6 +7,8 @@ import { handleGoogleLogin } from "../api/handleGoogleLogin.js";
 import Loading from "../components/Loading.jsx";
 import useUserStore from "../store/useUserStore.js";
 
+import SignUpImage from "../assets/images/reservationImage.png";
+
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
@@ -31,7 +33,7 @@ const SignupPage = () => {
           headers: {
             "x-api-key": import.meta.env.VITE_WEB_API_KEY,
           },
-        }
+        },
       );
 
       setIsLoading(false);
@@ -47,11 +49,11 @@ const SignupPage = () => {
   return (
     <div className="flex flex-col items-center h-[100dvh] w-[100vw] overflow-hidden lg:flex-row lg:justify-center ">
       {isLoading && <Loading />}
-      <div className="w-[270px] h-[200px] mb-2 lg:w-[50%] lg:h-[70%]">
+      <div className="w-[270px] h-[200px] mb-2 lg:w-[40%] lg:h-[70%]">
         <img
-          src="./logo.jpg"
+          src={SignUpImage}
           alt="Salon Logo"
-          className="rounded-xl w-full h-full object-contain"
+          className="rounded-xl w-full h-full object-cover"
         />
       </div>
 
