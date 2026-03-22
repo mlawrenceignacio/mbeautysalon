@@ -32,7 +32,9 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
           <p className="text-sm font-bold">{fb.email}</p>
           <div className="flex gap-2 items-center">
             <p className="text-sm italic">@{fb.username}</p>
-            <p className="text-sm">| {fb.star} star</p>
+            <p className="text-sm text-yellow-600 font-bold">
+              | {fb.star} Star
+            </p>
           </div>
         </div>
 
@@ -72,8 +74,7 @@ const FeedbackCard = ({ fb, getFeedbacks, onEdit }) => {
           </div>
         )}
       </div>
-      <br />
-      <p className="text-black">{fb.message}</p>
+      <p className="text-black mt-2">{fb.message}</p>
       <div className="mt-1 text-xs">
         <p>{formatDate(fb.createdAt)}</p>
       </div>
