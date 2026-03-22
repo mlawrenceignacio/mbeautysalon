@@ -118,7 +118,7 @@ body {
 
 /* SERVICES */
 #head {
-  background-image: url("/assets/images/desktopBG.jpg");
+  background-image: url("assets/images/desktopBG.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
